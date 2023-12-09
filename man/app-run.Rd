@@ -2,10 +2,10 @@
 % Please edit documentation in R/app-run.R
 \name{app-run}
 \alias{app-run}
-\alias{apptemplate1}
+\alias{templateApp}
 \title{Run App}
 \usage{
-apptemplate1(...)
+templateApp(...)
 }
 \arguments{
 \item{...}{named args to pass to shinyApp's options parameter}
@@ -15,6 +15,6 @@ Functions to run the package shiny app
 }
 \section{Functions}{
 \itemize{
-\item \code{apptemplate1()}: returns app object for subsequent execution
+\item \code{templateApp()}: returns app object for subsequent execution
 
 }}

@@ -3,29 +3,49 @@
 \name{app-plots}
 \alias{app-plots}
 \alias{.plot_theme}
-\alias{.plot_title_style}
-\alias{.build_plot}
-\alias{.build_data}
+\alias{.plot_title}
+\alias{build_data}
+\alias{save_data}
+\alias{build_plot}
+\alias{save_plot}
 \title{App Outputs}
 \usage{
 .plot_theme()
 
-.plot_title_style(ptitle, psubtitle)
+.plot_title(ptitle, psubtitle)
 
-.build_plot(pdata, bin_count)
+build_data(DT)
 
-.build_data(data)
+save_data(pdata, name = "pdata")
+
+build_plot(pdata, bin_count)
+
+save_plot(p, name, h = 500, w = 500, units = "px", dpi = 125, bg = NULL)
 }
 \arguments{
 \item{ptitle}{plot title}
 
 \item{psubtitle}{plot subtitle}
 
+\item{DT}{data to build plot data from}
+
 \item{pdata}{plot data}
+
+\item{name}{name for plot or dataset for saving}
 
 \item{bin_count}{total count of bins used in plot}
 
-\item{data}{data to build plot data from}
+\item{p}{plot object}
+
+\item{h}{height of plot png in units}
+
+\item{w}{width of plot png in units}
+
+\item{units}{units for plot png (defaults to "px")}
+
+\item{dpi}{dpi for plot png (defaults to 125)}
+
+\item{bg}{background for plot png (defaults to NULL)}
 }
 \description{
 Functions to generate and prepare outputs presented by the package app.
@@ -34,10 +54,14 @@ Functions to generate and prepare outputs presented by the package app.
 \itemize{
 \item \code{.plot_theme()}: provides the base theme for plots
 
-\item \code{.plot_title_style()}: Style the plot title/subtitle
+\item \code{.plot_title()}: Style the plot title/subtitle
 
-\item \code{.build_plot()}: diagnostic plot
+\item \code{build_data()}: build plot data with result of rdscore::restock_rec_ep
 
-\item \code{.build_data()}: diagnostic plot
+\item \code{save_data()}: keeps plot data generated during session
+
+\item \code{build_plot()}: build list of plots that operate on the same dataset
+
+\item \code{save_plot()}: Saving plots for report
 
 }}

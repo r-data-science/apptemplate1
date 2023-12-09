@@ -14,7 +14,7 @@ NULL
 #' @importFrom shiny shinyApp
 #' @describeIn app-run returns app object for subsequent execution
 #' @export
-apptemplate1 <- function(...) {
+templateApp <- function(...) {
   shiny::shinyApp(
     ui = app_ui(),
     server = app_server(),

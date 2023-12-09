@@ -5,10 +5,6 @@
 \alias{new_waiter}
 \alias{waiter_html}
 \alias{generate_report}
-\alias{build_plot_data}
-\alias{save_plot_data}
-\alias{build_plot_obj}
-\alias{save_plot_png}
 \alias{is_ci}
 \alias{is_testing}
 \alias{get_app_colors}
@@ -23,21 +19,13 @@ waiter_html(msg)
 
 generate_report(file)
 
-build_plot_data(DT, fn_data)
-
-save_plot_data(pdata)
-
-build_plot_obj(pdata, fn_plot, ...)
-
-save_plot_png(p, pnam, w, h, units = "px", dpi = 125, bg = NULL)
-
 is_ci()
 
 is_testing()
 
 get_app_colors()
 
-get_session_dir()
+get_session_dir(error = FALSE)
 
 create_session_dir()
 
@@ -50,32 +38,10 @@ clear_session_dir()
 
 \item{file}{file name for report download passed from app}
 
-\item{DT}{data to build plot data from}
-
-\item{fn_data}{function that takes DT and returns plot dataset}
-
-\item{pdata}{plot data}
-
-\item{fn_plot}{function that takes pdata and returns plot object}
-
-\item{...}{additional arguments to pass to fn_plot}
-
-\item{p}{plot object}
-
-\item{pnam}{name of plot for saving}
-
-\item{w}{width of plot png in units}
-
-\item{h}{height of plot png in units}
-
-\item{units}{units for plot png (defaults to "px")}
-
-\item{dpi}{dpi for plot png (defaults to 125)}
-
-\item{bg}{background for plot png (defaults to NULL)}
+\item{error}{When session NF, FALSE (default) returns NULL, else throw error}
 }
 \description{
-Functions required to execute and facililate an application user session
+Functions required to execute and facililate an application user session.
 }
 \section{Functions}{
 \itemize{
@@ -84,14 +50,6 @@ Functions required to execute and facililate an application user session
 \item \code{waiter_html()}: get html for waiter progress page
 
 \item \code{generate_report()}: Generate report and return download link
-
-\item \code{build_plot_data()}: build plot data with result of rdscore::restock_rec_ep
-
-\item \code{save_plot_data()}: keeps plot data generated during session
-
-\item \code{build_plot_obj()}: build list of plots that operate on the same dataset
-
-\item \code{save_plot_png()}: Saving plots for report
 
 \item \code{is_ci()}: returns TRUE if called on CI
 

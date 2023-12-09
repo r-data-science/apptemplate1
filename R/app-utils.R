@@ -1,22 +1,17 @@
 #' App Utils
 #'
-#' Functions required to execute and facililate an application user session
-#'
-#' @param session shiny session object
-#' @param msg message for waiter screen
-#' @param pdata plot data
+#' Functions required to execute and facililate an application user session.
 #'
 #' @importFrom waiter Waiter spin_pulsar
 #' @importFrom shiny tagList br getDefaultReactiveDomain
 #' @importFrom rdstools log_inf log_wrn
 #' @importFrom fs path path_temp dir_create dir_tree dir_delete
-#' @importFrom ggplot2 ggsave
 #'
 #' @name app-utils
 NULL
 
-globalVariables(c("faithful"))
 
+#' @param session shiny session object
 #' @describeIn app-utils create a new waiter object
 new_waiter <- function(session = NULL) {
   if (is.null(session)) {
@@ -29,36 +24,35 @@ new_waiter <- function(session = NULL) {
 }
 
 
+#' @param msg message for waiter screen
 #' @describeIn app-utils get html for waiter progress page
 waiter_html <- function(msg) {
   shiny::tagList(waiter::spin_pulsar(), shiny::br(), msg)
 }
 
 
-
 #' @param file file name for report download passed from app
-#'
 #' @describeIn app-utils Generate report and return download link
 generate_report <- function(file) {
-  # rdstools::log_inf(paste("...Rendering Report"))
+  rdstools::log_inf("...Rendering Report")
   # report_path <- fs::path(get_session_dir(), "output/report.Rmd")
-  #
+
   # rdstools::log_inf(paste("...File Input: ", report_path))
   # rdstools::log_inf(paste("...File Output: ", file))
-  #
+
   # if (is_testing() & !shiny::isRunning()) {
   #   templ_path <- fs::path_wd("_docs/test-template.Rmd")
   # } else {
-  #   templ_path <- fs::path_package("rdsapps", "docs", "template.Rmd")
+  #   templ_path <- fs::path_package("apptemplate1", "docs", "template.Rmd")
   # }
-  #
-  # rdstools::log_inf(paste0("Read Template From: ", templ_path))
+
+  # rdstools::log_inf(past e0("Read Template From: ", templ_path))
   # rdstools::log_inf(paste0("Write Rmarkdown To: ", report_path))
   # writeLines(readLines(templ_path), report_path)
-  #
-  # outpath <- fs::path(get_session_dir(), file)
-  # rdstools::log_inf(paste0("Render Report To: ", outpath))
-  #
+
+  outpath <- fs::path(get_session_dir(), file)
+  rdstools::log_inf(paste0("Render Report To: ", outpath))
+
   # x <- rmarkdown::render(
   #   input = report_path,
   #   output_file = file,
@@ -77,65 +71,6 @@ generate_report <- function(file) {
   #
   # rdstools::log_suc("...File Created for Download...", x)
   # return(x)
-}
-
-
-#' @param DT data to build plot data from
-#' @param fn_data function that takes DT and returns plot dataset
-#'
-#' @describeIn app-utils build plot data with result of rdscore::restock_rec_ep
-build_plot_data <- function(DT, fn_data) {
-  pdata <- fn_data(DT) ## operate on cDT
-  return(pdata)
-}
-
-
-#' @describeIn app-utils keeps plot data generated during session
-save_plot_data <- function(pdata) {
-  rdstools::log_inf("...Saving Plot Datasets")
-  dpath <- fs::path(get_session_dir(), "output/plots/data")
-  rdstools::log_inf(paste0("...Save Path: ", dpath))
-  saveRDS(pdata, fs::path(dpath, "pdata.Rds"))
-  invisible(pdata)
-}
-
-
-#' @param fn_plot function that takes pdata and returns plot object
-#' @param ... additional arguments to pass to fn_plot
-#'
-#' @describeIn app-utils build list of plots that operate on the same dataset
-build_plot_obj <- function(pdata, fn_plot, ...) {
-  rdstools::log_inf("...Building Plot")
-  p <- fn_plot(pdata, ...)
-  return(p)
-}
-
-
-#' @param p plot object
-#' @param pnam name of plot for saving
-#' @param w width of plot png in units
-#' @param h height of plot png in units
-#' @param units units for plot png (defaults to "px")
-#' @param dpi dpi for plot png (defaults to 125)
-#' @param bg background for plot png (defaults to NULL)
-#'
-#' @describeIn app-utils Saving plots for report
-save_plot_png <- function(p, pnam, w, h, units = "px", dpi = 125, bg = NULL) {
-  rdstools::log_inf(paste0("...Saving Plot PNG"))
-  png_nam <- paste0(pnam, ".png")
-  outpath <- fs::path(get_session_dir(), "output/plots", png_nam)
-  rdstools::log_inf(paste0("...Save Path: ", outpath))
-  ggplot2::ggsave(
-    filename = png_nam,
-    plot = p,
-    path = outpath,
-    width = w,
-    height = h,
-    units = units,
-    dpi = dpi,
-    bg = bg
-  )
-  invisible(p)
 }
 
 
@@ -166,9 +101,13 @@ get_app_colors <- function() {
 }
 
 
+#' @param error When session NF, FALSE (default) returns NULL, else throw error
 #' @describeIn app-utils creates and returns app dir path
-get_session_dir <- function() {
-  .appenv$path_session_dir
+get_session_dir <- function(error = FALSE) {
+  app_d <- .appenv$path_session_dir
+  if (is.null(app_d) & error)
+    stop("No session directory detected", call. = FALSE)
+  return(app_d)
 }
 
 

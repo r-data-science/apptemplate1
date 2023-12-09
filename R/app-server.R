@@ -20,10 +20,10 @@ app_server <- function() {
 
     output$plot_1 <- shiny::renderPlot({
       rdstools::log_inf("+++ app event @-> render plot")
-      p <- build_plot_data(faithful, fn_data = .build_data) |>
-        save_plot_data() |>
-        build_plot_obj(fn_plot = .build_plot, bin_count = r_bin_count()) |>
-        save_plot_png(pnam = "plot_1", h = 500, w = 500)
+      p <- build_data(faithful) |>
+        save_data("plot_1") |>
+        build_plot(r_bin_count()) |>
+        save_plot("plot_1")
       p
     })
 

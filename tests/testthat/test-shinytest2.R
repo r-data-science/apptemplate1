@@ -5,7 +5,7 @@ test_that("{shinytest2} Testing App", {
 
   #===========================================================
   app <- AppDriver$new(
-    app_dir = apptemplate1(),
+    app_dir = templateApp(),
     name = "app"
   )
   #===========================================================

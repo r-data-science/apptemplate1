@@ -58,5 +58,5 @@ WORKDIR /home/app
 RUN chown app:app -R /home/app
 USER app
 
-CMD ["R", "-e", "apptemplate1::apptemplate1()"]
+CMD ["R", "-e", "apptemplate1::templateApp()"]
 

@@ -12,17 +12,18 @@ NULL
 
 #' @describeIn app-ui UI function for app
 app_ui <- function() {
+  .colors <- get_app_colors()
   shiny::fluidPage(
     theme = bslib::bs_theme(
       version = 5,
-      bg = "#041E39",
-      fg = "#E0ECF9",
-      primary = "#187dd4",
-      secondary = "#ED9100",
-      success = "#00A651",
-      info = "#fff573",
-      warning = "#7d3be8",
-      danger = "#DB14BF",
+      bg = .colors$bg,
+      fg = .colors$fg,
+      primary = .colors$primary,
+      secondary = .colors$secondary,
+      success = .colors$success,
+      info = .colors$info,
+      warning = .colors$warning,
+      danger = .colors$danger,
       bootswatch = "materia"
     ),
     waiter::useWaiter(),
@@ -64,19 +65,21 @@ app_ui <- function() {
               style = "jelly",
               block = TRUE
             ),
-            shinyWidgets::actionBttn(
-              inputId = "btn_post",
-              color = "warning",
-              label = "Create Report",
-              size = "xs",
-              style = "minimal",
-              block = TRUE
-            ),
-            shinyWidgets::actionBttn(
-              inputId = "btn_reset",
-              label = "Reset to Default",
-              size = "xs",
-              style = "fill"
+            fluidRow(
+              column(6, shinyWidgets::actionBttn(
+                inputId = "btn_post",
+                color = "warning",
+                label = "Create Report",
+                size = "xs",
+                style = "minimal",
+                block = TRUE
+              )),
+              column(6, shinyWidgets::actionBttn(
+                inputId = "btn_reset",
+                label = "Reset to Default",
+                size = "xs",
+                style = "fill"
+              ))
             ),
             placement = "bottom-end",
             padding = 1,

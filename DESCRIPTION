@@ -1,6 +1,6 @@
 Package: apptemplate1
 Title: Template Single-App Package
-Version: 0.0.1
+Version: 0.9.1
 Authors@R: 
   person(
     given = "Bobby", 
@@ -27,12 +27,13 @@ Imports:
   bslib,
   waiter,
   fs,
-  stringr
+  stringr,
+  data.table
 Remotes:
   git@github.com:r-data-science/rdstools.git
 Depends: 
   R (>= 4.0)
 Suggests: 
-    shinytest2,
-    covr,
-    testthat (>= 3.0.0)
+  shinytest2,
+  covr,
+  testthat (>= 3.0.0)
