@@ -11,9 +11,6 @@ name: test-coverage
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
-    # env:
-    #   GITHUB_PAT: ${{ secrets.GH_PAT }}
-    #   RPG_CONN_STRING: ${{ secrets.RPG_CONN_STRING }}
 
     steps:
       - name: Checkout Package Source
@@ -24,14 +21,6 @@ jobs:
         with:
           use-public-rspm: true
 
-      # - name: Install Private Depends
-      #   run: |
-      #     install.packages("remotes", repos = "https://packagemanager.posit.co/cran/latest")
-      #     remotes::install_github("r-data-science/rpgconn")
-      #     remotes::install_github("r-data-science/rdstools")
-      #     remotes::install_github("r-data-science/rdscore")
-      #   shell: Rscript {0}
-
       - name: Install Cran Depends
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -40,7 +29,7 @@ jobs:
             any::covr
           needs: coverage
 
-      - name: Test coverage
+      - name: Test Code Coverage
         run: |
           covr::codecov(
             quiet = FALSE,
@@ -49,21 +38,21 @@ jobs:
           )
         shell: Rscript {0}
 
-      - name: Show testthat output
+      - name: Show Testthat Output
         if: always()
         run: |
           ## --------------------------------------------------------------------
           find ${{ runner.temp }}/package -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
 
-      - name: Upload test results
+      - name: Upload Test Results
         if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package
 
-      # - name: Upload Coverage to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
