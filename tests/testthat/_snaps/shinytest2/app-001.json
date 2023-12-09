@@ -1,0 +1,19 @@
+{
+  "input": {
+    "bin_count": 5,
+    "btn_param_drop": 0,
+    "btn_param_drop_dropmenu": false,
+    "btn_post": 0,
+    "btn_reset": 0
+  },
+  "output": {
+    "plot_1": {
+      "message": "argument is of length zero",
+      "call": "if (file == \"\") stop(\"'file' must be non-empty string\")",
+      "type": null
+    }
+  },
+  "export": {
+
+  }
+}
