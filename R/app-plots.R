@@ -98,7 +98,7 @@ save_data <- function(pdata, name = "pdata") {
 build_plot <- function(pdata, bin_count) {
   rdstools::log_inf(stringr::str_glue("...Creating plot w/{bin_count} bins"))
   p <- ggplot2::ggplot(pdata) +
-    ggplot2::geom_histogram(aes_string("waiting"),
+    ggplot2::geom_histogram(aes(waiting),
                             bins = bin_count,
                             color = "white",
                             fill = "navy") +
@@ -122,7 +122,7 @@ save_plot <- function(p, name, h = 500, w = 500,
   rdstools::log_inf(paste0("...Saving Plot PNG"))
   png_nam <- paste0(name, ".png")
   app_d <- get_session_dir(error = TRUE)
-  outpath <- fs::path(app_d, "output/plots", png_nam)
+  outpath <- fs::path(app_d, "output/plots")
   rdstools::log_inf(paste0("...Save Path: ", outpath))
   ggplot2::ggsave(
     filename = png_nam,

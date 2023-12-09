@@ -15,4 +15,4 @@
 NULL
 
 
-globalVariables(c("faithful"))
+globalVariables(c("faithful", "waiting"))

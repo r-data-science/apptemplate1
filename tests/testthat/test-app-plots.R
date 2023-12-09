@@ -20,4 +20,3 @@ test_that("Testing Plot Functions", {
 
   clear_session_dir()
 })
-
