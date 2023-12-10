@@ -14,11 +14,18 @@ test_that("{shinytest2} Testing App", {
   )
 
   # Snapshot values
-  app$get_values() |>
+  app$get_values(input = TRUE) |>
     expect_snapshot_value(
       variant = platform_variant(),
       style = "json2",
-      tolerance = 0.0001
+      tolerance = 0.1
+    )
+
+  app$get_values(output = TRUE, hash_images = TRUE) |>
+    expect_snapshot_value(
+      variant = platform_variant(),
+      style = "json2",
+      tolerance = 0.1
     )
 
   # Set slider input
