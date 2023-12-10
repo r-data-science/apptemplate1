@@ -46,3 +46,4 @@ po/*~
 *_.new.png
 
 .Rprofile
+tests/testthat/bin

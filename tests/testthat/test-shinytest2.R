@@ -1,27 +1,46 @@
 library(shinytest2)
 
 test_that("{shinytest2} Testing App", {
+
+  # Start app driver
   app <- AppDriver$new(
     templateApp(),
     name = "app",
     variant = platform_variant(),
     seed = 121212,
+    expect_values_screenshot_args = FALSE,
     height = 757,
     width = 1239
   )
-  app$expect_values()
+
+  # Snapshot values
+  app$get_values() |>
+    expect_snapshot_value(
+      variant = platform_variant(),
+      style = "json2",
+      tolerance = 0.0001
+    )
+
+  # Set slider input
   app$set_inputs(bin_count = 14)
+
+  # Click to open dropdown
   app$click("btn_param_drop")
   app$set_inputs(btn_param_drop_dropmenu = TRUE)
-  app$expect_download("btn_dl")
+
+  # Download rendered report
+  app$expect_download("btn_dl", compare = compare_file_text)
+
+  # Waiter shows and hides
   app$set_inputs(waiter_shown = TRUE,
                  allow_no_input_binding_ = TRUE,
                  priority_ = "event")
   app$set_inputs(waiter_hidden = TRUE,
                  allow_no_input_binding_ = TRUE,
                  priority_ = "event")
-  app$set_inputs(btn_param_drop_dropmenu = FALSE,
-                 wait_ = FALSE)
+
+  # close dropdown
+  app$set_inputs(btn_param_drop_dropmenu = FALSE, wait_ = FALSE)
   app$stop()
 })
 
