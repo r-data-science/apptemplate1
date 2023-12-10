@@ -20,7 +20,16 @@ save_data(pdata, name = "pdata")
 
 build_plot(pdata, bin_count)
 
-save_plot(p, name, h = 500, w = 500, units = "px", dpi = 125, bg = NULL)
+save_plot(
+  p,
+  bin_count,
+  name = "plot_1",
+  h = 500,
+  w = 1000,
+  units = "px",
+  dpi = 150,
+  bg = NULL
+)
 }
 \arguments{
 \item{ptitle}{plot title}

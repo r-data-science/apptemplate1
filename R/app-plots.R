@@ -117,8 +117,10 @@ build_plot <- function(pdata, bin_count) {
 #' @param bg background for plot png (defaults to NULL)
 #'
 #' @describeIn app-plots Saving plots for report
-save_plot <- function(p, name, h = 500, w = 500,
-                          units = "px", dpi = 125, bg = NULL) {
+save_plot <- function(p, bin_count, name = "plot_1",
+                      h = 500, w = 1000,
+                      units = "px", dpi = 150,
+                      bg = NULL) {
   rdstools::log_inf(paste0("...Saving Plot PNG"))
   png_nam <- paste0(name, ".png")
   app_d <- get_session_dir(error = TRUE)
@@ -134,5 +136,10 @@ save_plot <- function(p, name, h = 500, w = 500,
     dpi = dpi,
     bg = bg
   )
+
+  # Save bins as well
+  outfile <- fs::path(outpath, paste0(name, "-bins.Rds"))
+  saveRDS(bin_count, outfile)
+
   invisible(p)
 }

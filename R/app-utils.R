@@ -4,8 +4,9 @@
 #'
 #' @importFrom waiter Waiter spin_pulsar
 #' @importFrom shiny tagList br getDefaultReactiveDomain
-#' @importFrom rdstools log_inf log_wrn
-#' @importFrom fs path path_temp dir_create dir_tree dir_delete
+#' @importFrom rdstools log_inf log_wrn log_suc
+#' @importFrom fs path path_temp dir_create dir_tree dir_delete path_ext
+#' @importFrom rmarkdown pdf_document html_document word_document
 #'
 #' @name app-utils
 NULL
@@ -33,44 +34,36 @@ waiter_html <- function(msg) {
 
 #' @param file file name for report download passed from app
 #' @describeIn app-utils Generate report and return download link
-generate_report <- function(file) {
+generate_report <- function(file = "report.html") {
   rdstools::log_inf("...Rendering Report")
-  # report_path <- fs::path(get_session_dir(), "output/report.Rmd")
+  app_d <- get_session_dir(error = TRUE)
+  report_path <- fs::path(app_d, "output/report.Rmd")
+  render_dir <- fs::path(app_d, "www")
 
-  # rdstools::log_inf(paste("...File Input: ", report_path))
-  # rdstools::log_inf(paste("...File Output: ", file))
+  rdstools::log_inf("<< File Input >>")
+  rdstools::log_inf(report_path)
+  rdstools::log_inf("<< Render To >>")
+  rdstools::log_inf(render_dir)
 
-  # if (is_testing() & !shiny::isRunning()) {
-  #   templ_path <- fs::path_wd("_docs/test-template.Rmd")
-  # } else {
-  #   templ_path <- fs::path_package("apptemplate1", "docs", "template.Rmd")
-  # }
-
-  # rdstools::log_inf(past e0("Read Template From: ", templ_path))
-  # rdstools::log_inf(paste0("Write Rmarkdown To: ", report_path))
-  # writeLines(readLines(templ_path), report_path)
-
-  outpath <- fs::path(get_session_dir(), file)
-  rdstools::log_inf(paste0("Render Report To: ", outpath))
-
-  # x <- rmarkdown::render(
-  #   input = report_path,
-  #   output_file = file,
-  #   output_dir = get_session_dir(),
-  #   output_format = switch(
-  #     fs::path_ext(file),
-  #     "pdf" = rmarkdown::pdf_document(),
-  #     "html" = rmarkdown::html_document(),
-  #     "docx" = rmarkdown::word_document()
-  #   ),
-  #   clean = TRUE,
-  #   run_pandoc = TRUE,
-  #   output_options = "self-contained",
-  #   encoding = 'UTF-8'
-  # )
-  #
-  # rdstools::log_suc("...File Created for Download...", x)
-  # return(x)
+  x <- rmarkdown::render(
+    input = report_path,
+    output_file = file,
+    output_dir = render_dir,
+    output_format = switch(
+      fs::path_ext(file),
+      "pdf" = rmarkdown::pdf_document(),
+      "html" = rmarkdown::html_document(),
+      "docx" = rmarkdown::word_document()
+    ),
+    clean = TRUE,
+    run_pandoc = TRUE,
+    output_options = "self-contained",
+    encoding = 'UTF-8'
+  )
+  rdstools::log_suc("...Report Generated...")
+  rdstools::log_suc("<< Download File >>")
+  rdstools::log_suc(x)
+  return(x)
 }
 
 
@@ -105,7 +98,7 @@ get_app_colors <- function() {
 #' @describeIn app-utils creates and returns app dir path
 get_session_dir <- function(error = FALSE) {
   app_d <- .appenv$path_session_dir
-  if (is.null(app_d) & error)
+  if (is.null(app_d) && error)
     stop("No session directory detected", call. = FALSE)
   return(app_d)
 }
@@ -123,6 +116,12 @@ create_session_dir <- function() {
   rdstools::log_inf(paste0("...Output Dir -> ", app_d))
   fs::dir_create(get_session_dir(), "www")
   fs::dir_create(get_session_dir(), "output", c("plots/data"))
+
+  # Copy report markdown from package to session dir
+  fs::path_package("apptemplate1", "docs/template.Rmd") |>
+    readLines() |>
+    writeLines(fs::path(app_d, "output/report.Rmd"))
+
   cat("\n\n")
   cat("**************\n")
   fs::dir_tree(app_d)

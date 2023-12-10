@@ -18,13 +18,28 @@ app_server <- function() {
 
     r_bin_count <- shiny::reactive(input$bin_count)
 
+    r_plot_data <- reactive({
+      # w$show()
+
+      # w$update(html = waiter_html("Building Data"))
+      DT <- build_data(faithful)
+      # Sys.sleep(2)
+
+      # w$update(html = waiter_html("Saving Data"))
+      save_data(DT, "plot_1")
+      # Sys.sleep(2)
+
+      # w$hide()
+      DT[]
+    })
+
+    r_plot_obj <- reactive({
+      build_plot(r_plot_data(), r_bin_count())
+    })
+
     output$plot_1 <- shiny::renderPlot({
       rdstools::log_inf("+++ app event @-> render plot")
-      p <- build_data(faithful) |>
-        save_data("plot_1") |>
-        build_plot(r_bin_count()) |>
-        save_plot("plot_1")
-      p
+      r_plot_obj()
     })
 
     # On click, generate report
@@ -68,9 +83,16 @@ app_server <- function() {
       },
       content = function(file) {
         w$show()
-        w$update(html = waiter_html("Generating Report..."))
+
+        w$update(html = waiter_html("Saving Plot"))
+        save_plot(r_plot_obj(), r_bin_count(), "plot_1")
+        Sys.sleep(2)
+
+        w$update(html = waiter_html("Generating Report"))
+        Sys.sleep(2)
         report_path <- generate_report(file)
         file.copy(report_path, file)
+
         w$hide()
       }
     )

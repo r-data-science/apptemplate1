@@ -17,7 +17,7 @@ new_waiter(session = NULL)
 
 waiter_html(msg)
 
-generate_report(file)
+generate_report(file = "report.html")
 
 is_ci()
 

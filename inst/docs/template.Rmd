@@ -1,0 +1,11 @@
+---
+title: "My Report"
+output: html_document
+---
+
+Plot Bins: `r readRDS(file = "plots/plot_1-bins.Rds")`
+
+# My Plots
+
+![](plots/plot_1.png)
+
