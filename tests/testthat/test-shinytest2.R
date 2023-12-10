@@ -3,7 +3,7 @@ library(shinytest2)
 test_that("{shinytest2} Testing App", {
 
   #===========================================================
-  app <- AppDriver$new(app_dir = templateApp(), name = "app")
+  app <- AppDriver$new(app_dir = templateApp(), name = "app", seed = 1000)
 
   #===========================================================
   app$log_message("*****< Started App Driver >*****")
