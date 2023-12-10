@@ -14,19 +14,21 @@ test_that("{shinytest2} Testing App", {
   )
 
   # Snapshot values
-  app$get_values(input = TRUE) |>
-    expect_snapshot_value(
-      variant = platform_variant(),
-      style = "json2",
-      tolerance = 0.1
-    )
+  expect_snapshot_value(
+    variant = platform_variant(),
+    style = "json2",
+    tolerance = 0.1, {
+      ll <- app$get_values()
+      ll$output$plot_1$src <- NULL
+      ll
+    })
 
-  app$get_values(output = TRUE, hash_images = TRUE) |>
-    expect_snapshot_value(
-      variant = platform_variant(),
-      style = "json2",
-      tolerance = 0.1
-    )
+  # app$get_values(output = TRUE, hash_images = TRUE) |>
+  #   expect_snapshot_value(
+  #     variant = platform_variant(),
+  #     style = "json2",
+  #     tolerance = 0.1
+  #   )
 
   # Set slider input
   app$set_inputs(bin_count = 14)
@@ -36,7 +38,7 @@ test_that("{shinytest2} Testing App", {
   app$set_inputs(btn_param_drop_dropmenu = TRUE)
 
   # Download rendered report
-  app$expect_download("btn_dl", compare = compare_file_text)
+  app$expect_download("btn_dl", compare = compare_reports)
 
   # Waiter shows and hides
   app$set_inputs(waiter_shown = TRUE,

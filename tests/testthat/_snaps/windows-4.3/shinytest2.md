@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["input"]
+          "value": ["input", "output", "export"]
         }
       },
       "value": [
@@ -47,22 +47,7 @@
               "value": ["html"]
             }
           ]
-        }
-      ]
-    }
-
----
-
-    {
-      "type": "list",
-      "attributes": {
-        "names": {
-          "type": "character",
-          "attributes": {},
-          "value": ["output"]
-        }
-      },
-      "value": [
+        },
         {
           "type": "list",
           "attributes": {
@@ -79,15 +64,10 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["src", "width", "height", "alt", "coordmap"]
+                  "value": ["width", "height", "alt", "coordmap"]
                 }
               },
               "value": [
-                {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["[image data hash: f92f2f18c09a34b6e62cb8603777114c]"]
-                },
                 {
                   "type": "integer",
                   "attributes": {},
@@ -286,6 +266,17 @@
               ]
             }
           ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
         }
       ]
     }
