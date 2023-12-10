@@ -1,15 +1,14 @@
 {
   "input": {
-    "bin_count": 14,
+    "bin_count": 5,
     "btn_param_drop": 0,
     "btn_param_drop_dropmenu": false,
-    "btn_post": 0,
-    "btn_reset": 0
+    "dl_format": "html"
   },
   "output": {
     "plot_1": {
-      "src": "[image data hash: 738d3912116e70211b4fe531d570e3fd]",
-      "width": 936,
+      "src": "[image data hash: f92f2f18c09a34b6e62cb8603777114c]",
+      "width": 1162,
       "height": 675,
       "alt": "Plot object",
       "coordmap": {
@@ -26,25 +25,25 @@
               "y": null
             },
             "domain": {
-              "left": 39.95384615384615,
-              "right": 102.7384615384615,
-              "bottom": -2.35,
-              "top": 49.35
+              "left": 29.8125,
+              "right": 102.6875,
+              "bottom": -6.800000000000001,
+              "top": 142.8
             },
             "mapping": {
               "y": null,
               "x": "waiting"
             },
             "range": {
-              "left": 23.75470890410951,
-              "right": 930.5205479452055,
+              "left": 30.42658390410963,
+              "right": 1156.520547945205,
               "bottom": 653.5890410958905,
               "top": 65.41380250600534
             }
           }
         ],
         "dims": {
-          "width": 936,
+          "width": 1162,
           "height": 675
         }
       }

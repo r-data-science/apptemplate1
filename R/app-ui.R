@@ -57,6 +57,7 @@ app_ui <- function() {
           offset = 11,
           width = 1,
           shinyWidgets::dropMenu(
+
             shinyWidgets::actionBttn(
               inputId = "btn_param_drop",
               icon = shiny::icon("gear"),
@@ -66,24 +67,30 @@ app_ui <- function() {
               block = TRUE
             ),
             fluidRow(
-              column(6, shinyWidgets::actionBttn(
-                inputId = "btn_post",
-                color = "warning",
-                label = "Create Report",
-                size = "xs",
-                style = "minimal",
-                block = TRUE
-              )),
-              column(6, shinyWidgets::actionBttn(
-                inputId = "btn_reset",
-                label = "Reset to Default",
-                size = "xs",
-                style = "fill"
-              ))
+              column(
+                width = 9,
+                shinyWidgets::prettyRadioButtons(
+                  inputId = "dl_format",
+                  label = "Report Type",
+                  width = "100%",
+                  bigger = FALSE,
+                  outline = TRUE,
+                  choices = c("html", "pdf", "word"),
+                  selected = "html",
+                  inline = TRUE,
+                  status = "danger",
+                  fill = TRUE
+                )
+              ),
+              column(
+                width = 3,
+                shiny::downloadButton("btn_dl", NULL)
+              )
             ),
+            theme = "material",
             placement = "bottom-end",
-            padding = 1,
-            maxWidth = "600px"
+            padding = .5,
+            maxWidth = 600
           )
         )
       )

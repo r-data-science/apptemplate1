@@ -35,20 +35,16 @@ waiter_html <- function(msg) {
 #' @param file file name for report download passed from app
 #' @describeIn app-utils Generate report and return download link
 generate_report <- function(file = "report.html") {
-  rdstools::log_inf("...Rendering Report")
-  app_d <- get_session_dir(error = TRUE)
-  report_path <- fs::path(app_d, "output/report.Rmd")
-  render_dir <- fs::path(app_d, "www")
-
-  rdstools::log_inf("<< File Input >>")
-  rdstools::log_inf(report_path)
-  rdstools::log_inf("<< Render To >>")
-  rdstools::log_inf(render_dir)
-
+  rdstools::log_inf("...Rendering Report...")
+  app_dir  <- get_session_dir(error = TRUE)
+  rmd_path <- fs::path(app_dir, "output/report.Rmd")
+  out_dir  <- fs::path(app_dir, "www")
+  rdstools::log_inf("-----> Input File: ./output/report.Rmd")
+  rdstools::log_inf("-----> Render Dir: ./www/")
   x <- rmarkdown::render(
-    input = report_path,
+    input = rmd_path,
     output_file = file,
-    output_dir = render_dir,
+    output_dir = out_dir,
     output_format = switch(
       fs::path_ext(file),
       "pdf" = rmarkdown::pdf_document(),
@@ -60,9 +56,7 @@ generate_report <- function(file = "report.html") {
     output_options = "self-contained",
     encoding = 'UTF-8'
   )
-  rdstools::log_suc("...Report Generated...")
-  rdstools::log_suc("<< Download File >>")
-  rdstools::log_suc(x)
+  rdstools::log_suc("...Render Complete...")
   return(x)
 }
 
@@ -99,23 +93,24 @@ get_app_colors <- function() {
 get_session_dir <- function(error = FALSE) {
   app_d <- .appenv$path_session_dir
   if (is.null(app_d) && error)
-    stop("No session directory detected", call. = FALSE)
+    stop("No Session Dir Found", call. = FALSE)
   return(app_d)
 }
 
 
 #' @describeIn app-utils Run and Publishing Functions
 create_session_dir <- function() {
-  rdstools::log_inf("...Creating session directory")
-  if (is_testing()) {
+  rdstools::log_inf("...Creating Session Directory...")
+
+  # if testing, use wkdir as path to session dir
+  .appenv$path_session_dir <- fs::path_temp(".app-session")
+  if (is_testing())
     .appenv$path_session_dir <- ".app-session"
-  } else {
-    .appenv$path_session_dir <- fs::path_temp(".app-session")
-  }
+
   app_d <- fs::dir_create(get_session_dir())
-  rdstools::log_inf(paste0("...Output Dir -> ", app_d))
-  fs::dir_create(get_session_dir(), "www")
-  fs::dir_create(get_session_dir(), "output", c("plots/data"))
+  rdstools::log_inf(paste0("-----> ", app_d))
+  fs::dir_create(app_d, "www")
+  fs::dir_create(app_d, "output", c("plots/data"))
 
   # Copy report markdown from package to session dir
   fs::path_package("apptemplate1", "docs/template.Rmd") |>
@@ -132,21 +127,15 @@ create_session_dir <- function() {
 
 #' @describeIn app-utils Run and Publishing Functions
 clear_session_dir <- function() {
-  if (getOption("shiny.testmode", FALSE)) {
-    rdstools::log_inf("...[Test Mode] not deleting session directory")
-    .appenv$path_session_dir <- NULL
-    invisible(TRUE)
+  app_d <- get_session_dir()
+  if (is.null(app_d)) {
+    rdstools::log_wrn("...No Session Dir Found...")
+    invisible(FALSE)
   } else {
-    app_d <- get_session_dir()
-    if (is.null(app_d)) {
-      rdstools::log_wrn("No session directory to clear")
-      invisible(FALSE)
-    } else {
-      rdstools::log_suc("...Cleared Session Outputs")
-      fs::dir_delete(app_d)
-      .appenv$path_session_dir <- NULL
-      invisible(TRUE)
-    }
+    fs::dir_delete(app_d)
+    .appenv$path_session_dir <- NULL
+    rdstools::log_suc("...Cleared Session Directory...")
+    invisible(TRUE)
   }
 }
 

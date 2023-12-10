@@ -1,3 +1,7 @@
+library(ggplot2)
+
+clear_session_dir()
+
 test_that("Testing Waiter", {
   w <- new_waiter()
   expect_s3_class(w, "waiter")
@@ -13,7 +17,7 @@ test_that("Testing session dir handlers", {
     expect_null()
 
   get_session_dir(error = TRUE) |>
-    expect_error("No session directory detected")
+    expect_error("No Session Dir Found")
 
   create_session_dir() |>
     fs::dir_exists() |>
@@ -50,8 +54,14 @@ test_that("Testing app utils", {
 
 
 test_that("Testing report generation", {
-  x <- create_session_dir()
-  saveRDS(5, fs::path(x, "output/plots/plot_1-bins.Rds"))
+  app_d <- create_session_dir()
+  path <- fs::path(app_d, "output/plots/plot_1-bins.Rds")
+  saveRDS(5, path)
+  ggsave(
+    plot = ggplot(faithful) + geom_histogram(aes(waiting), bins = 5),
+    filename = "plot_1.png",
+    path = fs::path(app_d, "output/plots")
+  )
   generate_report("test.html") |>
     fs::file_exists() |>
     expect_true()

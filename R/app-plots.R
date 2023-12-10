@@ -85,10 +85,9 @@ build_data <- function(DT) {
 
 #' @describeIn app-plots keeps plot data generated during session
 save_data <- function(pdata, name = "pdata") {
-  rdstools::log_inf("...Saving Plot Datasets")
+  rdstools::log_inf("...Saving Plot Dataset...")
   app_d <- get_session_dir(error = TRUE)
   dpath <- fs::path(app_d, "output/plots/data")
-  rdstools::log_inf(paste0("...Save Path: ", dpath))
   saveRDS(pdata, fs::path(dpath, paste0(name, ".Rds")))
   invisible(pdata)
 }
@@ -96,7 +95,7 @@ save_data <- function(pdata, name = "pdata") {
 
 #' @describeIn app-plots build list of plots that operate on the same dataset
 build_plot <- function(pdata, bin_count) {
-  rdstools::log_inf(stringr::str_glue("...Creating plot w/{bin_count} bins"))
+  rdstools::log_inf(stringr::str_glue("...Created Plot w/{bin_count} Bins..."))
   p <- ggplot2::ggplot(pdata) +
     ggplot2::geom_histogram(aes(waiting),
                             bins = bin_count,
@@ -121,11 +120,14 @@ save_plot <- function(p, bin_count, name = "plot_1",
                       h = 500, w = 1000,
                       units = "px", dpi = 150,
                       bg = NULL) {
-  rdstools::log_inf(paste0("...Saving Plot PNG"))
+  rdstools::log_inf("...Saving Plot PNG...")
   png_nam <- paste0(name, ".png")
+
+  # Get app directory to save plot to
   app_d <- get_session_dir(error = TRUE)
+
+  # Save plot as png
   outpath <- fs::path(app_d, "output/plots")
-  rdstools::log_inf(paste0("...Save Path: ", outpath))
   ggplot2::ggsave(
     filename = png_nam,
     plot = p,
@@ -136,7 +138,6 @@ save_plot <- function(p, bin_count, name = "plot_1",
     dpi = dpi,
     bg = bg
   )
-
   # Save bins as well
   outfile <- fs::path(outpath, paste0(name, "-bins.Rds"))
   saveRDS(bin_count, outfile)
