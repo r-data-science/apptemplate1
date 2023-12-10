@@ -3,10 +3,8 @@ library(shinytest2)
 test_that("{shinytest2} Testing App", {
 
   #===========================================================
-  app <- AppDriver$new(
-    app_dir = "_app",
-    name = "app"
-  )
+  app <- AppDriver$new(app_dir = templateApp(), name = "app")
+
   #===========================================================
   app$log_message("*****< Started App Driver >*****")
   app$wait_for_idle()
@@ -27,8 +25,6 @@ test_that("{shinytest2} Testing App", {
   #===========================================================
   app$log_message("*****< App Tests Complete >*****")
   app$stop()
-
-  fs::dir_delete("_app/.app-session")
 })
 
 

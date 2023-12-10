@@ -13,24 +13,17 @@ app_server <- function() {
 
   function(input, output, session) {
     w <- new_waiter()
+    create_session_dir()
 
     shiny::onStop(clear_session_dir, session)
 
     r_bin_count <- shiny::reactive(input$bin_count)
 
     r_plot_data <- reactive({
-      # w$show()
-
-      # w$update(html = waiter_html("Building Data"))
-      DT <- build_data(faithful)
-      # Sys.sleep(2)
-
-      # w$update(html = waiter_html("Saving Data"))
-      save_data(DT, "plot_1")
-      # Sys.sleep(2)
-
-      # w$hide()
-      DT[]
+      # This doesn't need to be in a reactive, but doing it
+      # for illustrative purposes
+      build_data(faithful) |>
+        save_data("plot_1")
     })
 
     r_plot_obj <- reactive({
