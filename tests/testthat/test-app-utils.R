@@ -49,4 +49,10 @@ test_that("Testing app utils", {
 })
 
 
-
+test_that("Testing report generation", {
+  x <- create_session_dir()
+  saveRDS(5, fs::path(x, "output/plots/plot_1-bins.Rds"))
+  generate_report("test.html") |>
+    expect_snapshot_file()
+  clear_session_dir()
+})
