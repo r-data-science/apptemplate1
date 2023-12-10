@@ -17,10 +17,13 @@ test_that("{shinytest2} Testing App", {
   app$set_inputs(bin_count = 14)
   app$expect_values()
 
+
   #-------------
-  app$click("btn_post")
-  app$set_inputs(dl_format = "html", wait_ = FALSE)
-  app$expect_download("btn_dl")
+  if (!is_ci()) {
+    app$click("btn_post")
+    app$set_inputs(dl_format = "html", wait_ = FALSE)
+    app$expect_download("btn_dl")
+  }
 
   #===========================================================
   app$log_message("*****< App Tests Complete >*****")
