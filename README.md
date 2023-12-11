@@ -23,13 +23,17 @@ via docker container.
 -   All functionality of the app, including simulated user-interactions,
     as well as load-testing, can be included in the unit and coverage
     tests executed by a standard R package check
-    -   See **here (LINK)** for unit testing of app reactivity
-        implemented via **shinytest2** **(LINK)**
 -   Workflow for automated CI/Deployment of app is simplified to that of
     a standard R package. App can be deployed as a docker image as part
     of workflow that checks, tests, and builds the package
-    -   See the Github actions workflow included in this repo **here
-        (LINK)**
+
+#### Additional Resources
+
+-   To unit tests this shiny app, including simulated user actions and
+    snapshots, I utilize the package shinytest2 in conjuction with
+    snapshot expectations from package testthat
+-   For additional information on how to load test shiny apps, both
+    locally as well as a deployed app, see shinyloadtest for more info
 
 For an example of a multi-app R package, see **here** **(LINK)**.
 
