@@ -11,6 +11,7 @@
 #'
 #' @import ggplot2
 #' @import ggtext
+#' @import rdstools
 #' @importFrom stringr str_glue
 #' @importFrom data.table copy
 #'

@@ -3,12 +3,15 @@
 \name{app-run}
 \alias{app-run}
 \alias{templateApp}
+\alias{app_server}
+\alias{app_ui}
 \title{Run App}
 \usage{
-templateApp(...)
-}
-\arguments{
-\item{...}{named args to pass to shinyApp's options parameter}
+templateApp()
+
+app_server()
+
+app_ui()
 }
 \description{
 Functions to run the package shiny app
@@ -16,5 +19,9 @@ Functions to run the package shiny app
 \section{Functions}{
 \itemize{
 \item \code{templateApp()}: returns app object for subsequent execution
+
+\item \code{app_server()}: server function for app
+
+\item \code{app_ui()}: UI function for app
 
 }}

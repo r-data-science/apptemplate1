@@ -2,30 +2,32 @@
 #'
 #' Functions required to execute and facililate an application user session.
 #'
-#' @importFrom waiter Waiter spin_pulsar
-#' @importFrom shiny tagList br getDefaultReactiveDomain
-#' @importFrom rdstools log_inf log_wrn log_suc
-#' @importFrom fs path path_temp dir_create dir_tree dir_delete path_ext
-#' @importFrom rmarkdown pdf_document html_document word_document
+#' @import rdstools
+#' @import fs
 #'
 #' @name app-utils
 NULL
 
-
 #' @param session shiny session object
+#'
+#' @importFrom shiny getDefaultReactiveDomain
+#' @importFrom waiter Waiter
+#'
 #' @describeIn app-utils create a new waiter object
 new_waiter <- function(session = NULL) {
-  if (is.null(session)) {
+  if (is.null(session))
     shiny::getDefaultReactiveDomain()
-  }
   waiter::Waiter$new(
     html = waiter_html("Initializing..."),
     color = get_app_colors()$bg
   )
 }
 
-
 #' @param msg message for waiter screen
+#'
+#' @importFrom shiny tagList br
+#' @importFrom waiter spin_pulsar
+#'
 #' @describeIn app-utils get html for waiter progress page
 waiter_html <- function(msg) {
   shiny::tagList(waiter::spin_pulsar(), shiny::br(), msg)
@@ -33,6 +35,9 @@ waiter_html <- function(msg) {
 
 
 #' @param file file name for report download passed from app
+#'
+#' @importFrom rmarkdown render pdf_document html_document word_document
+#'
 #' @describeIn app-utils Generate report and return download link
 generate_report <- function(file = "report.html") {
   rdstools::log_inf("...Rendering Report...")

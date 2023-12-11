@@ -52,7 +52,6 @@ test_that("Testing app utils", {
     )
 })
 
-
 test_that("Testing report generation", {
   app_d <- create_session_dir()
   path <- fs::path(app_d, "output/plots/plot_1-bins.Rds")
