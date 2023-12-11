@@ -23,13 +23,6 @@ test_that("{shinytest2} Testing App", {
       ll
     })
 
-  # app$get_values(output = TRUE, hash_images = TRUE) |>
-  #   expect_snapshot_value(
-  #     variant = platform_variant(),
-  #     style = "json2",
-  #     tolerance = 0.1
-  #   )
-
   # Set slider input
   app$set_inputs(bin_count = 14)
 
