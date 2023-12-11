@@ -41,18 +41,18 @@ For an example of a multi-app R package, see **here** **(LINK)**.
 
 ```         
 R/
-├──app-run.R......................App server/ui code + function to launch app 
-├──app-plots.R....................App functionality to build and save plot/data 
-└──app-utils.R....................All other functions needed during app session
+├──app-run.R........................App server/ui code + function to launch app 
+├──app-plots.R......................App functionality to build and save plot/data 
+└──app-utils.R......................All other functions needed during app session
 
 tests/testthat/
-├── test-app-run.R.................End-to-end app and user-interactions tests 
-├── test-app-plots.R...............Isolated unit testing of app plot functions
-├── test-app-utils.R...............Isolated unit testing of other app functions
-├── _snaps.........................Snapshots are saved here in testing
-└── _tools.........................Contains helpers for debugging
-    ├── dl-artifacts.sh............Download gh actions artifacts by id
-    └── list-artifacts.sh..........List all gh actions artifacts for repo
+├── test-app-run.R..................End-to-end app and user-interactions tests 
+├── test-app-plots.R................Isolated unit testing of app plot functions
+├── test-app-utils.R................Isolated unit testing of other app functions
+├── _snaps..........................Snapshots are saved here in testing
+└── _tools..........................Contains helpers for debugging
+    ├── dl-artifacts.sh.............Download gh actions artifacts by id
+    └── list-artifacts.sh...........List all gh actions artifacts for repo
 
 inst/ 
 ├── docker.........................Docker context used in CI/Deploy Workflow
