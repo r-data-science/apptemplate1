@@ -55,11 +55,11 @@ tests/testthat/
     └── list-artifacts.sh...........List all gh actions artifacts for repo
 
 inst/ 
-├── docker.........................Docker context used in CI/Deploy Workflow
-│   ├── Dockerfile.................Dockerfile to build image of deployed app 
-│   └── Rprofile.site..............Copied to image on docker build
+├── docker..........................Docker context used in CI/Deploy Workflow
+│   ├── Dockerfile..................Dockerfile to build image of deployed app 
+│   └── Rprofile.site...............Copied to image on docker build
 └── docs
-    └── template.Rmd...............Template Report used by app on user action
+    └── template.Rmd................Template Report used by app on user action
 
 .github/workflows/
 ├── R-CMD-check.yaml................Test app via package build/check steps
