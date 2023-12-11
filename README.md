@@ -16,60 +16,30 @@ template for a shiny app that has full test coverage with workflows that
 include end-to-end shiny app unit tests as well as automated deployment
 via docker container.
 
-Single-App R Package
+#### Single-App R Package Benefits
 
-:   All latest functions, ui/server code, and dependencies for a single
+-   All latest functions, ui/server code, and dependencies for a single
     app are accessible after installing or updating a single R package
-
-    All functionality of the app, including simulated user-interactions,
+-   All functionality of the app, including simulated user-interactions,
     as well as load-testing, can be included in the unit and coverage
     tests executed by a standard R package check
-
     -   See **here (LINK)** for unit testing of app reactivity
         implemented via **shinytest2** **(LINK)**
-
-    Workflow for automated CI/Deployment of app is simplified to that of
+-   Workflow for automated CI/Deployment of app is simplified to that of
     a standard R package. App can be deployed as a docker image as part
     of workflow that checks, tests, and builds the package
-
     -   See the Github actions workflow included in this repo **here
         (LINK)**
 
 For an example of a multi-app R package, see **here** **(LINK)**.
-
-## Install & Run App
-
-### From R Session...
-
-This package exports a single R function that launches this template
-shiny app.
-
-``` r
-# remotes::install_github("r-data-science/apptemplate1")
-apptemplate1::templateApp() # run app in R session
-```
-
-### As Docker Container...
-
-To run this as a docker container, perform the following bash commands:
-
-```{bash}
-sudo docker pull \
-  bfatemi/apptemplate1:latest
-
-sudo docker run \
-  --name app-template-1 \
-  -p 3939:3939 \
-  --rm \
-  -dt bfatemi/apptemplate1:latest
-```
 
 ## Package Structure
 
 ```         
 R/
 ├──app-run.R...........App server/ui code + function to launch app 
-├──app-plots.R.........App functionality to build and save plot/data └──app-utils.R.........All other functions needed during app session
+├──app-plots.R.........App functionality to build and save plot/data 
+└──app-utils.R.........All other functions needed during app session
 
 tests/testthat/
 ├── test-app-run.R......End-to-end app and user-interactions tests 
@@ -90,6 +60,30 @@ inst/
 .github/workflows/
 ├── R-CMD-check.yaml.....Test app via package build/check steps
 └── test-coverage.yaml...Test and report coverage of app codebase
+```
+
+------------------------------------------------------------------------
+
+## Install & Run App
+
+#### In R Session
+
+This package exports a single R function that launches the packaged
+shiny app:
+
+``` r
+# remotes::install_github("r-data-science/apptemplate1")
+apptemplate1::templateApp()
+```
+
+#### In Docker Container
+
+To run this as a docker container, perform the following bash commands:
+
+```{bash}
+sudo docker pull bfatemi/apptemplate1:latest
+sudo docker run --name demo-app \
+  -p 3939:3939 --rm -dt bfatemi/apptemplate1:latest
 ```
 
 ------------------------------------------------------------------------
