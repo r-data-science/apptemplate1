@@ -42,7 +42,9 @@ app_server <- function() {
 
     # Putting this in reactive for illustrative purposes
     r_plot_data <- shiny::reactive({
-      save_data(build_data(faithful), "plot_1")
+      get("faithful") |>
+        build_data() |>
+        save_data("plot_1")
     })
 
     r_plot_obj <- shiny::reactive({

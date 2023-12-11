@@ -97,11 +97,14 @@ save_data <- function(pdata, name = "pdata") {
 #' @describeIn app-plots build list of plots that operate on the same dataset
 build_plot <- function(pdata, bin_count) {
   rdstools::log_inf(stringr::str_glue("...Created Plot w/{bin_count} Bins..."))
+  .colors <- get_app_colors()
   p <- ggplot2::ggplot(pdata) +
-    ggplot2::geom_histogram(aes(waiting),
-                            bins = bin_count,
-                            color = "white",
-                            fill = "navy") +
+    ggplot2::geom_histogram(
+      ggplot2::aes(get("waiting")),
+      bins = bin_count,
+      color = "white",
+      fill = .colors$info
+    ) +
     ggplot2::xlab('Waiting time until next eruption') +
     .plot_title("Histogram of Waiting Times", "Shown in Minutes") +
     .plot_theme()

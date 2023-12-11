@@ -1,6 +1,6 @@
 Package: apptemplate1
 Title: Template Single-App Package
-Version: 0.9.1
+Version: 0.9.8
 Authors@R: 
   person(
     given = "Bobby", 
@@ -18,18 +18,18 @@ URL: https://github.com/r-data-science/apptemplate1
 BugReports: https://github.com/r-data-science/apptemplate1/issues
 Config/testthat/edition: 3
 Imports:
-    rdstools,
-    shiny,
-    shinyWidgets,
-    shinycssloaders,
-    ggplot2,
-    ggtext,
-    bslib,
-    waiter,
-    fs,
-    stringr,
-    data.table,
-    rmarkdown
+  rdstools,
+  shiny,
+  shinyWidgets,
+  shinycssloaders,
+  ggplot2,
+  ggtext,
+  bslib,
+  waiter,
+  fs,
+  stringr,
+  data.table,
+  rmarkdown
 Remotes:
   git@github.com:r-data-science/rdstools.git
 Depends: 
