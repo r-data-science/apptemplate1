@@ -1,4 +1,5 @@
-# apptemplate1
+# apptemplate1 <img src="man/figures/logo.png" align="right" height="120" alt="" />
+
 
 <!-- badges: start -->
 
@@ -10,8 +11,9 @@
 
 ## Shiny App via R Package
 
-This is a working demo of (and template for) a single shiny app fully wrapped into an R
-package that is complete with unit testing, code coverage, and end-to-end shiny app testing with shinytest2.
+This is a working demo of (and template for) a single shiny app fully
+wrapped into an R package that is complete with unit testing, code
+coverage, and end-to-end shiny app testing with shinytest2.
 
 #### Single-App R Package Benefits
 
