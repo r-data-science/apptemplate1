@@ -10,11 +10,8 @@
 
 ## Shiny App via R Package
 
-This is a working demo of a single shiny app fully wrapped into an R
-package. It is intended to be used as a comprehensive example, demo, and
-template for a shiny app that has full test coverage with workflows that
-include end-to-end shiny app unit tests as well as automated deployment
-via docker container.
+This is a working demo of (and template for) a single shiny app fully wrapped into an R
+package that is complete with unit testing, code coverage, and end-to-end shiny app testing with shinytest2.
 
 #### Single-App R Package Benefits
 
